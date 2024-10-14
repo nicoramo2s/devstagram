@@ -20,10 +20,12 @@ class LoginController extends Controller
         ]);
 
         // request->remember crea una token cokie y lo guarda en la base de datos del usuario
-        if (!Auth::attempt($request->only('email','password'), $request->remember)) {
+        if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
             return back()->with('mensaje', 'Email o password incorrectos');
         }
 
-        return redirect()->route('posts.index');
+        // Redirigir a posts.index con el username del usuario autenticado
+        $user = Auth::user();
+        return redirect()->route('posts.index', ['user' => $user->username]);
     }
 }
