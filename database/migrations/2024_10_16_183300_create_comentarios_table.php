@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); // Relaciona automaticamente con user usando constrained()
-            $table->foreignId('post_id')->constrained(); // Relaciona automaticamente con post usando constrained()
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relaciona automaticamente con user usando constrained()
+            $table->foreignId('post_id')->constrained()->onDelete('cascade'); // Relaciona automaticamente con post usando constrained()
             $table->string('comentario');
             $table->timestamps();
         });

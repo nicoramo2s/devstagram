@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -77,5 +79,21 @@ class PostController extends Controller implements HasMiddleware
             'post' => $post,
             'user' => $user
         ]);
+    }
+
+    public function destroy(Post $post)
+    {
+        Gate::allows('delete', $post);
+        $post->delete();
+
+        //Eliminar la imagen
+        $imagen_path = public_path('uploads/' . $post->imagen);
+
+        if (File::exists($imagen_path)) {
+            unlink($imagen_path);
+            // File::delete($imagen_path);
+        }
+
+        return redirect()->route('posts.index', Auth::user()->username);
     }
 }
