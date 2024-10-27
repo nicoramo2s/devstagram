@@ -34,6 +34,7 @@ class Post extends Model
 
     public function checkLike(User $user)
     {
-        return $this->likes()->contains('user_id', $user->id);
+        // contains detecta si existe el usuario en la tabla de likes
+        return $this->likes->contains('user_id', $user->id);
     }
 }

@@ -11,7 +11,8 @@
             <div class="p-3 flex items-center gap-4">
                 @auth()
                     @if ($post->checkLike(auth()->user()))
-                        <form action="{{ route('posts.likes.store', $post) }}" method="POST">
+                        <form action="{{ route('posts.likes.destroy', $post) }}" method="POST">
+                            @method('DELETE')
                             @csrf
                             <div class="my-4">
                                 <button type="submit">
@@ -38,7 +39,7 @@
                         </form>
                     @endif
                 @endauth
-                <p>0 Likes</p>
+                <p class="font-bold my-auto">{{ $post->likes->count() }} <span class="font-normal">likes</span></p>
             </div>
             <div class="p-3">
                 <p class="font-bold">{{ $post->user->username }}</p>
