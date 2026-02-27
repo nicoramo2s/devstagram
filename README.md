@@ -1,66 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# DevStagram
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+DevStagram es una red social de fotografías construida con **Laravel 11**, inspirada en la dinámica de Instagram. La aplicación permite a los usuarios registrarse, crear publicaciones con imagen, dar likes, comentar y seguir a otros perfiles.
 
-## About Laravel
+## Características principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Registro, inicio y cierre de sesión de usuarios.
+- Edición de perfil (username e imagen de perfil).
+- Creación de publicaciones con carga de imagen (Dropzone + procesamiento con Intervention Image).
+- Visualización de publicaciones por usuario y en la página principal.
+- Sistema de likes en publicaciones (Livewire).
+- Comentarios en publicaciones.
+- Sistema de seguimiento entre usuarios (seguir/dejar de seguir).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack tecnológico
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend:** PHP 8.2+, Laravel 11
+- **Frontend:** Blade, Tailwind CSS, Vite
+- **Interactividad:** Livewire 3
+- **Carga de archivos:** Dropzone
+- **Procesamiento de imágenes:** Intervention Image
+- **Base de datos:** MySQL (por defecto en Docker Sail)
+- **Contenedores (opcional):** Laravel Sail (Docker)
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Opción A: entorno local
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.2+
+- Composer
+- Node.js 18+ y npm
+- MySQL 8+
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Opción B: entorno con Docker
 
-## Laravel Sponsors
+- Docker + Docker Compose
+- Composer (para instalar dependencias inicialmente)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Instalación y ejecución (local)
 
-### Premium Partners
+1. Clona el repositorio.
+2. Instala dependencias de PHP:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   composer install
+   ```
 
-## Contributing
+3. Crea el archivo de entorno:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+4. Genera la clave de aplicación:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+5. Configura las variables de base de datos en `.env` (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+6. Ejecuta migraciones:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```bash
+   php artisan migrate
+   ```
 
-## License
+7. Instala dependencias de frontend:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   npm install
+   ```
+
+8. Compila assets:
+
+   ```bash
+   npm run build
+   ```
+
+   > Durante desarrollo puedes usar `npm run dev` en otra terminal.
+
+9. Levanta el servidor local:
+
+   ```bash
+   php artisan serve
+   ```
+
+10. Abre la app en `http://127.0.0.1:8000`.
+
+## Instalación y ejecución con Laravel Sail (Docker)
+
+1. Instala dependencias:
+
+   ```bash
+   composer install
+   ```
+
+2. Crea `.env` y genera clave:
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+3. Levanta contenedores:
+
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+
+4. Ejecuta migraciones dentro del contenedor:
+
+   ```bash
+   ./vendor/bin/sail artisan migrate
+   ```
+
+5. Instala y compila frontend:
+
+   ```bash
+   ./vendor/bin/sail npm install
+   ./vendor/bin/sail npm run build
+   ```
+
+6. Accede a la aplicación en el puerto configurado (`APP_PORT`, por defecto `80`).
+
+## Comandos útiles
+
+- Ejecutar pruebas:
+
+  ```bash
+  php artisan test
+  ```
+
+- Ejecutar linter de código PHP (Laravel Pint):
+
+  ```bash
+  ./vendor/bin/pint
+  ```
+
+- Compilar frontend para producción:
+
+  ```bash
+  npm run build
+  ```
+
+## Estructura funcional (resumen)
+
+- `routes/web.php`: rutas principales (auth, posts, likes, comentarios, follows, perfil).
+- `app/Http/Controllers`: lógica HTTP de autenticación, publicaciones, perfil y social features.
+- `resources/views`: vistas Blade.
+- `app/Livewire/LikePost.php`: componente Livewire de likes.
+- `resources/js/app.js`: integración de Dropzone para subida de imágenes.
+
+## Notas
+
+- Las imágenes de publicaciones se guardan en `public/uploads`.
+- Las imágenes de perfil se guardan en `public/perfiles`.
+- Si cambias variables de entorno, limpia cachés de configuración:
+
+  ```bash
+  php artisan config:clear
+  php artisan cache:clear
+  ```
+
+---
+
